@@ -42,13 +42,13 @@ docker compose up -d
 
 *   **步驟 3-1：產生應用程式金鑰 (APP_KEY)**
     ```bash
-    ./vendor/bin/sail php artisan key:generate
+    ./vendor/bin/sail artisan key:generate
     ```
     > 💡 **為什麼要執行這個？** 此指令會生成一組隨機字串並寫入 `.env` 的 `APP_KEY` 中，用於加密密碼、Session 與各類敏感資料。若沒有此金鑰，Laravel 會無法運行並顯示錯誤。
 
 *   **步驟 3-2：執行資料庫遷移**
     ```bash
-    ./vendor/bin/sail php artisan migrate
+    ./vendor/bin/sail artisan migrate
     ```
 
 ### 4. 瀏覽網站
@@ -66,7 +66,7 @@ docker compose up -d
 
 ### 🔑 APP_KEY
 *   **用途**：Laravel 應用的安全金鑰。
-*   **生成方式**：執行 `./vendor/bin/sail php artisan key:generate`。
+*   **生成方式**：執行 `./vendor/bin/sail artisan key:generate`。
 *   **注意**：請確保此金鑰在生產環境中保持機密，且不要隨意更改，否則已加密的資料將無法解密。
 
 ### 🐳 Sail 權限與除錯設定
@@ -92,6 +92,6 @@ docker compose up -d
 
 *   **啟動服務**：`./vendor/bin/sail up -d`
 *   **停止服務**：`./vendor/bin/sail down`
-*   **執行 Artisan 指令**：`./vendor/bin/sail php artisan ...`
+*   **執行 Artisan 指令**：`./vendor/bin/sail artisan ...`
 *   **執行 Composer 指令**：`./vendor/bin/sail composer ...`
 *   **執行 Node/NPM 指令**：`./vendor/bin/sail npm ...`
