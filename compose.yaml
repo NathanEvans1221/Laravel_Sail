@@ -18,6 +18,7 @@ services:
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
+            DB_HOST: '${DB_HOST}'
             # Xdebug 除錯工具預設為關閉。若需啟用，請在 .env 設定 SAIL_XDEBUG_MODE=develop,debug
             XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
@@ -32,9 +33,30 @@ services:
             - mysql
             - redis
             - mailpit
+    # phpmyadmin (From docker-compose.yml)
+    phpmyadmin:
+        image: 'phpmyadmin/phpmyadmin'
+        restart: always
+        ports:
+            - '${FORWARD_PHPMYADMIN_PORT:-3307}:80'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            PMA_HOST: mysql
+            PMA_USER: root
+            PMA_PASSWORD: '${DB_PASSWORD}'
+        networks:
+            - sail
+
     # MySQL 資料庫服務
     mysql:
-        image: 'mysql:8.4'
+        image: 'mysql/mysql-server:8.0'
+        # MySQL 效能優化參數說明：
+        # ⚠️ 注意：以下參數僅適用於開發與測試環境以節省資源，生產環境請勿參照此配置。
+        # --innodb-buffer-pool-size=256M: 限制 InnoDB 緩衝池記憶體，避免開發環境過度佔用 RAM。
+        # --max-connections=50: 限制最大連線數，適合單人開發使用。
+        # --performance-schema=0: 禁用效能分析架構 (Performance Schema) 以節省記憶體。
+        # --host-cache-size=0: 禁用主機快取，解決 DNS 快取問題並符合 MySQL 8+ 最佳實踐 (取代 --skip-host-cache)。
+        command: --innodb-buffer-pool-size=256M --max-connections=50 --performance-schema=0 --host-cache-size=0
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -44,7 +66,6 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
-            MYSQL_EXTRA_OPTIONS: '${MYSQL_EXTRA_OPTIONS:-}'
         volumes:
             # 資料庫檔案持久化存儲 (避免重啟丟失資料)
             - 'sail-mysql:/var/lib/mysql'
@@ -76,6 +97,17 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+    redis-insight:
+        image: 'redis/redisinsight:latest'
+        container_name: redis-insight
+        restart: unless-stopped
+        ports:
+            - '${FORWARD_REDIS_INSIGHT_PORT:-5540}:5540'
+        volumes:
+            - 'sail-redis-insight:/data'
+        networks:
+            - sail
+
     # Mailpit 電郵測試工具 (攔截發送出的郵件)
     mailpit:
         image: 'axllent/mailpit:latest'
@@ -94,4 +126,6 @@ volumes:
     sail-mysql:
         driver: local
     sail-redis:
+        driver: local
+    sail-redis-insight:
         driver: local
