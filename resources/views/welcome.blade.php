@@ -54,6 +54,18 @@
                 <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
                     <h1 class="mb-1 font-medium">Let's get started</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Laravel has an incredibly rich ecosystem. <br>We suggest starting with the following.</p>
+                    
+                    @if (auth()->check())
+                        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
+                            <p class="font-bold">權限測試區域：</p>
+                            @can('edit articles')
+                                <span class="text-green-600">✅ 你擁有「編輯文章」的權限</span>
+                            @else
+                                <span class="text-red-600">❌ 你沒有「編輯文章」的權限</span>
+                            @endcan
+                        </div>
+                    @endif
+
                     <ul class="flex flex-col mb-4 lg:mb-6">
                         <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                             <span class="relative py-1 bg-white dark:bg-[#161615]">

@@ -20,3 +20,12 @@
 - 修正 MySQL 容器啟動失敗問題 (`OS errno 13 - Permission denied`)。
   - 重建 `sail-mysql` Volume以清除舊版本不相容之資料權限。
   - 於 MySQL 啟動指令追加 `--host-cache-size=0` 以解決 `--skip-host-cache` 棄用警告。
+
+### Added
+- 新增 `docs/laravel-permission-installation.md`：Spatie Laravel Permission 套件安裝指南，包含安裝步驟與 Browser/Tinker 測試流程。
+- 安裝 `laravel/breeze` 套件：提供標準的使用者註冊、登入與管理功能 (Auth Scaffolding)，作為測試權限的基礎。
+
+### Changed
+- `app/Models/User.php`: 引入 `HasRoles` Trait 並規範化程式碼格式。
+- `README.md`: 新增「進階指南 & 文件」區塊，連結至權限套件安裝說明。
+- `resources/views/welcome.blade.php`: 新增權限測試區塊，在首頁即時顯示當前登入使用者的權限狀態 (Has Permission / No Permission)。
