@@ -7,6 +7,15 @@
 
 ## [Unreleased]
 
+### Added
+- 建立多語系 (i18n) 基礎架構，整合 `laravel-vue-i18n` 套件。
+- 新增 `docs/i18n-setup.md` 說明文件 (含前後端語系機制比較)。
+- 新增 `lang/zh_TW.json` 繁體中文語系檔。
+- 新增 `lang/en.json` 英文語系檔 (防止前端切換語系時報錯)。
+
+### Changed
+- 更新 `vite.config.js` 與 `resources/js/app.js` 以支援前後端共用語系檔。
+
 ### Changed
 - `compose.yaml`: 合併參考範例 `docker-compose.yml` 之配置。
   - 將 MySQL 映像檔版本由 `8.4` 調整為 `mysql/mysql-server:8.0` 以統一環境。

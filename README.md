@@ -142,3 +142,6 @@ docker compose up -d
 - **[Inertia Page Props 配置指南](./docs/inertia-page-props.md)**
   - 說明如何在 Laravel Inertia 專案中設定全域共享資料 (Shared Data)。
   - 包含 Middleware 配置範例與 Vue 前端調用方式。
+
+- **[多語系 (i18n) 設定說明](./docs/i18n-setup.md)**
+  - 說明如何整合 Laravel 與 Vue i18n，實現前後端單一語系檔 (Single Source of Truth)。
