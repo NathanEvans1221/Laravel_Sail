@@ -24,6 +24,7 @@
 - 新增 `docs/i18n-implementation-summary.md`：多語系實作總結文件，包含所有翻譯鍵值與使用方式。
 - 擴充翻譯檔案，新增 15+ 個認證相關的翻譯鍵值（英文與繁體中文）。
 - 新增 `docs/design-guidelines.md`：設計風格指南，記錄專案的 UI/UX 設計規範，包含配色方案、字體系統、間距系統、組件設計、頁面布局等完整規範。
+- 新增 `docs/laravel_session.md`：Laravel Session 與 Redis 儲存說明文件，詳述儲存機制、序列化格式與檢視方法。
 
 ### Changed
 - 更新 `vite.config.js` 與 `resources/js/app.js` 以支援前後端共用語系檔。
@@ -59,5 +60,5 @@
 
 ### Changed
 - `app/Models/User.php`: 引入 `HasRoles` Trait 並規範化程式碼格式。
-- `README.md`: 新增「進階指南 & 文件」區塊，連結至權限套件安裝說明。
+- `README.md`: 擴充「進階指南 & 文件」區塊，新增 Laravel Session 與 Redis 儲存說明之連結。
 - `resources/views/welcome.blade.php`: 新增權限測試區塊，在首頁即時顯示當前登入使用者的權限狀態 (Has Permission / No Permission)。
