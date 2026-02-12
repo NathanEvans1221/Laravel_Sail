@@ -5,6 +5,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import LanguageSwitcher from '@/Components/LanguageSwitcher.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
@@ -42,7 +43,10 @@ const showingNavigationDropdown = ref(false);
                             </div>
                         </div>
 
-                        <div class="hidden sm:ms-6 sm:flex sm:items-center">
+                        <div class="hidden sm:ms-6 sm:flex sm:items-center sm:space-x-4">
+                            <!-- Language Switcher -->
+                            <LanguageSwitcher />
+                            
                             <!-- Settings Dropdown -->
                             <div class="relative ms-3">
                                 <Dropdown align="right" width="48">
@@ -174,6 +178,11 @@ const showingNavigationDropdown = ref(false);
                             >
                                 Log Out
                             </ResponsiveNavLink>
+                        </div>
+                        
+                        <!-- Language Switcher for Mobile -->
+                        <div class="border-t border-gray-200 px-4 py-4">
+                            <LanguageSwitcher />
                         </div>
                     </div>
                 </div>

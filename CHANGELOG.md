@@ -12,9 +12,31 @@
 - 新增 `docs/i18n-setup.md` 說明文件 (含前後端語系機制比較)。
 - 新增 `lang/zh_TW.json` 繁體中文語系檔。
 - 新增 `lang/en.json` 英文語系檔 (防止前端切換語系時報錯)。
+- 新增 `LanguageSwitcher.vue` 元件，並整合至 `GuestLayout`，讓登入/註冊頁面可切換語系。
+- 為所有認證相關頁面實作完整多語系支援：
+  - `Welcome.vue`：歡迎頁面導航連結
+  - `Dashboard.vue`：儀表板頁面
+  - `Auth/Register.vue`：註冊頁面
+  - `Auth/ForgotPassword.vue`：忘記密碼頁面
+  - `Auth/ResetPassword.vue`：重設密碼頁面
+  - `Auth/ConfirmPassword.vue`：確認密碼頁面
+  - `Auth/VerifyEmail.vue`：電子郵件驗證頁面
+- 新增 `docs/i18n-implementation-summary.md`：多語系實作總結文件，包含所有翻譯鍵值與使用方式。
+- 擴充翻譯檔案，新增 15+ 個認證相關的翻譯鍵值（英文與繁體中文）。
+- 新增 `docs/design-guidelines.md`：設計風格指南，記錄專案的 UI/UX 設計規範，包含配色方案、字體系統、間距系統、組件設計、頁面布局等完整規範。
 
 ### Changed
 - 更新 `vite.config.js` 與 `resources/js/app.js` 以支援前後端共用語系檔。
+- 將 `LanguageSwitcher` 組件整合到所有頁面：
+  - `AuthenticatedLayout.vue`：在桌面版導航欄和手機版響應式選單中添加語言切換器
+  - `Welcome.vue`：在頁面 header 中添加語言切換器
+  - 確保語言切換功能在所有頁面（已登入和未登入）都可使用
+- 重新設計 `Welcome.vue` 首頁為簡潔的教學專案風格：
+  - 移除 Laravel 官方宣傳內容，改為乾淨的現代化設計
+  - 新增版本資訊卡片（Laravel、PHP、Docker）
+  - 新增快速連結區塊（Documentation、Laracasts、Laravel News、GitHub）
+  - 採用漸層背景和卡片式布局，提升視覺效果
+  - 保留完整的導航功能和語言切換器
 
 ### Changed
 - `compose.yaml`: 合併參考範例 `docker-compose.yml` 之配置。
