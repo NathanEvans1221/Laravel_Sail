@@ -31,6 +31,8 @@
   - 建立 `resources/js/Utils/i18nProtector.ts` 提供加密/解密功能。
   - 在 `vite.config.js` 整合 `i18nProtectorPlugin` 插件，實現打包時自動物理加密。
   - 修改 `resources/js/app.js` 以支援解密載入 (修正為 Async Module 格式回傳)。
+- 新增 `pint.json`：PHP 程式碼格式化配置檔案。
+- 新增 `CHANGE.md`：變更記錄檔案（後續已整合至 CHANGELOG.md）。
 
 ### Changed
 - 更新 `vite.config.js` 與 `resources/js/app.js` 以支援前後端共用語系檔。
