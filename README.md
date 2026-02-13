@@ -159,4 +159,9 @@ docker compose up -d
   - 包含如何透過 Xdebug 或 PCOV 產生 HTML 格式的程式碼覆蓋率 (Code Coverage) 報告。
   - [coverage](./coverage)
 
+- **[專案目錄架構說明 (Project Structure)](./docs/project_structure.md)**
+  - 介紹本專案的前端 (Vue/Inertia) 與後端 (Laravel) 目錄結構與職責。
+  - 條列主要功能模組 (Components, Layouts, Controllers) 的存放位置。
+
+
   
