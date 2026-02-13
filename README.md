@@ -163,5 +163,9 @@ docker compose up -d
   - 介紹本專案的前端 (Vue/Inertia) 與後端 (Laravel) 目錄結構與職責。
   - 條列主要功能模組 (Components, Layouts, Controllers) 的存放位置。
 
+- **[開發常見操作指南 (Development Guide)](./docs/development_guide.md)**
+  - 說明如何新增常見的功能模組 (Controller, Middleware, Model 等)。
+  - 提供指令操作與程式碼範例，包含後端與前端 (Inertia Page) 的整合方式。
+
 
   

@@ -8,6 +8,7 @@
 ## [Unreleased]
 
 ### Added
+- 新增 `docs/development_guide.md`：開發常見操作指南，說明新增 Controller, Middleware, Model 等功能的標準流程與範例。
 - 建立多語系 (i18n) 基礎架構，整合 `laravel-vue-i18n` 套件。
 - 新增 `docs/i18n-setup.md` 說明文件 (含前後端語系機制比較)。
 - 新增 `lang/zh_TW.json` 繁體中文語系檔。
