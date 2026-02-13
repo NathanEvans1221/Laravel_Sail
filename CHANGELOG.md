@@ -26,6 +26,11 @@
 - 新增 `docs/design-guidelines.md`：設計風格指南，記錄專案的 UI/UX 設計規範，包含配色方案、字體系統、間距系統、組件設計、頁面布局等完整規範。
 - 新增 `docs/laravel_session.md`：Laravel Session 與 Redis 儲存說明文件，詳述儲存機制、序列化格式與檢視方法。
 - 新增 `docs/i18n-security-guide.md`：前後端語系共享與安全保護機制文件，詳述自動化加密與混淆邏輯。
+- 實作 i18n 安全保護機制：
+  - 安裝 `lz-string` 依賴。
+  - 建立 `resources/js/Utils/i18nProtector.ts` 提供加密/解密功能。
+  - 在 `vite.config.js` 整合 `i18nProtectorPlugin` 插件，實現打包時自動物理加密。
+  - 修改 `resources/js/app.js` 以支援解密載入 (修正為 Async Module 格式回傳)。
 
 ### Changed
 - 更新 `vite.config.js` 與 `resources/js/app.js` 以支援前後端共用語系檔。
@@ -63,6 +68,7 @@
 - `app/Models/User.php`: 引入 `HasRoles` Trait 並規範化程式碼格式。
 - `README.md`: 擴充「進階指南 & 文件」區塊，新增 Laravel Session 與 i18n 安全保護機制說明之連結。
 - `resources/views/welcome.blade.php`: 新增權限測試區塊，在首頁即時顯示當前登入使用者的權限狀態 (Has Permission / No Permission)。
+- `docs/i18n-security-guide.md`: 補充說明 `lz-string` 打包時的 Named Export 錯誤問題與兼容解決方案。
 - 新增 `docs/laravel-testing.md`：Laravel Testing 指南文件，詳述如何在 Sail 環境下執行測試並產生 Coverage 報告。
 - 更新 `.gitignore`：將 `/coverage` 目錄加入忽略清單。
 - 更新 `.env.example`：新增關於 `SAIL_XDEBUG_MODE` 支援 `coverage` 模式的說明。

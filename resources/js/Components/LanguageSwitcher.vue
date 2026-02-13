@@ -4,10 +4,14 @@ import { loadLanguageAsync, getActiveLanguage } from 'laravel-vue-i18n';
 
 const activeLang = ref('en');
 
-const changeLanguage = (lang) => {
-    loadLanguageAsync(lang);
-    localStorage.setItem('locale', lang);
-    activeLang.value = lang;
+const changeLanguage = async (lang) => {
+    try {
+        await loadLanguageAsync(lang);
+        localStorage.setItem('locale', lang);
+        activeLang.value = lang;
+    } catch (e) {
+        console.error(`[LanguageSwitcher] Change language failed:`, e);
+    }
 };
 
 onMounted(() => {

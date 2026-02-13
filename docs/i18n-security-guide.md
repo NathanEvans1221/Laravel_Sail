@@ -78,18 +78,27 @@ function i18nProtectorPlugin() {
 }
 ```
 
-### Step 4: 修改 i18n 初始化 (`resources/js/Plugins/i18n.ts`)
-透過 `loadMessages` 門面，自動識別環境並解密。
-```typescript
-const loadMessages = (data: any) => {
-    return (data && data._p) ? decrypt(data.d) : data;
-};
+### Step 4: 修改 i18n 初始化 (`resources/js/app.js`)
+利用 `laravel-vue-i18n` 的 `resolve` 選項攔截語系載入，並處理非同步解密。
+```javascript
+.use(i18nVue, {
+    resolve: async lang => {
+        const langs = import.meta.glob('../../lang/*.json');
+        const message = await langs[`../../lang/${lang}.json`]();
 
-// ...
-messages: {
-    'zh-TW': loadMessages(zhTW),
-    'en': loadMessages(en)
-}
+        // 取得模組內容
+        const data = message.default || message;
+        
+        // 檢查是否有加密標記 (_p: true)
+        if (data && data._p) {
+            // 關鍵修正：必須回傳 { default: ... } 結構，模擬 ES Module 行為
+            // 否則 i18n 套件讀取 .default 時會失敗
+            return { default: decrypt(data.d) };
+        }
+        
+        return data;
+    }
+})
 ```
 
 ---
@@ -103,6 +112,27 @@ messages: {
 ### Q2: Vite 打包時報錯 `SyntaxError: Unexpected token 'e'...`
 *   **原因**：Vite 的 `transform` 鉤子拿到的 `code` 已經被轉成了 `export default "..."` 字串，直接對其執行 `JSON.parse` 會失敗。
 *   **解決**：在插件中使用 `fs.readFileSync(id)` 重新讀取原始檔案內容，確保獲得的是標準 JSON 格式。
+
+### Q3: Vite Build 報錯 `Named export 'compressToBase64' not found`
+*   **原因**：`lz-string` 是一個 CommonJS 模組，不完整支援 ESM 的 Named Export。
+    *   **Node.js (Vite Config)**: 必須使用 `import LZString from 'lz-string'` (Default Import)。
+    *   **Browser (TypeScript)**: 為了同時兼容開發與打包後的環境，建議使用兼容性引入寫法。
+*   **解決**：
+    1.  **vite.config.js**：維持使用 Default Import。
+    2.  **i18nProtector.ts**：採用以下兼容寫法：
+        ```typescript
+        import * as LZStringModule from 'lz-string';
+        // @ts-ignore
+        const LZString = LZStringModule.default || LZStringModule;
+        ```
+
+### Q4: 解密後翻譯仍未顯示 (UI 不更新)
+*   **原因**：`laravel-vue-i18n` 使用動態導入 (`import()`) 載入語系檔，預期回傳的是一個 **ES Module** 物件 (包含 `default` 屬性)。若直接回傳解密後的純物件 (Plain Object)，套件嘗試存取 `.default` 時會得到 `undefined`，導致載入失敗。
+*   **解決**：在解密後，需將資料手動包裝成模組結構：
+    ```javascript
+    return { default: decrypt(data.d) };
+    ```
+
 
 ---
 
